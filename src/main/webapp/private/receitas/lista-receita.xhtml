@@ -1,0 +1,136 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		Receitas
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="receita.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		Receitas
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		Listagem de todas as receitas cadastradas no sistema.
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink action="cadastrar-receita.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Cadastrar Receita" ajax="false" id="nova-receita">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+			<p:tooltip for="nova-receita" value="Cadastrar nova receita" position="bottom" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink action="cadastrar-receita.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" ajax="false">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar	
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<f:event type="preRenderView" listener="#{receitaBean.listarTodos}" />
+
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<p:dataTable var="r" value="#{receitaBean.receitas}"
+				 emptyMessage="Nenhuma receita cadastrada"
+				resizableColumns="true" id="tabelaReceitas" rows="10" paginator="true" paginatorPosition="bottom">
+								
+				<p:column headerText="Nome" sortBy="#{r.nome}" width="300">
+					<h:outputText value="#{r.nome}" />
+				</p:column>
+				
+				<p:column headerText="CHO" styleClass="centralizado">
+					<h:outputText value="#{r.totalCarboidratos}"/>
+				</p:column>
+				
+				<p:column headerText="Fíbras" styleClass="centralizado">
+					<h:outputText value="#{r.totalFibras}"/>
+				</p:column>
+				
+				<p:column headerText="Lipídios" styleClass="centralizado">
+					<h:outputText value="#{r.totalLipidios}"/>
+				</p:column>
+				
+				<p:column headerText="Proteínas" styleClass="centralizado" width="78">
+					<h:outputText value="#{r.totalProteinas}"/>
+				</p:column>
+				
+				<p:column headerText="HDL" styleClass="centralizado">
+					<h:outputText value="#{r.totalColesterol}"/>
+				</p:column>
+				
+				<p:column headerText="Ca" styleClass="centralizado">
+					<h:outputText value="#{r.totalCalcio}"/>
+				</p:column>
+				
+				<p:column headerText="Zn" styleClass="centralizado">
+					<h:outputText value="#{r.totalZinco}"/>
+				</p:column>
+				
+				<p:column headerText="Fe" styleClass="centralizado">
+					<h:outputText value="#{r.totalFerro}"/>
+				</p:column>
+				
+				<p:column headerText="Na" styleClass="centralizado">
+					<h:outputText value="#{r.totalSodio}"/>
+				</p:column>
+				
+				<p:column headerText="Mg" styleClass="centralizado">
+					<h:outputText value="#{r.totalMagnesio}"/>
+				</p:column>
+				
+				<p:column headerText="Vitam. A" styleClass="centralizado">
+					<h:outputText value="#{r.totalVitaminaA}"/>
+				</p:column>
+				
+				<p:column headerText="Vitam. C" styleClass="centralizado">
+					<h:outputText value="#{r.totalVitaminaC}"/>
+				</p:column>
+
+				<p:column headerText="Opções" width="100" styleClass="centralizado">
+					<p:link  id="editar" outcome="/private/produto-receita/adicionar-produto-receita.xhtml">
+						<i class="material-icons Blue-Grey Icon-Hover">add_shopping_cart</i>
+						<f:param name="id" value="#{r.id}" />
+					</p:link>
+					
+					<p:tooltip for="editar" value="Adicionar produtos" position="bottom" />
+
+					<p:commandLink id="remover" action="#{receitaBean.remover()}"
+						update="frm frm:msg">
+						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
+						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir esta receita?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener value="#{r}" target="#{receitaBean.receita}" />
+					</p:commandLink>
+
+					<p:tooltip for="remover" value="Remover escola" position="bottom" />
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

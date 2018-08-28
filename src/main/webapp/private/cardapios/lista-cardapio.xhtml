@@ -1,0 +1,90 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		Cardápios
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="escola.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		Cardápios
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		Listagem de todos os cardápios cadastrados no sistema.
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink action="cadastrar-cardapio.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Cadastrar Cardápio" ajax="false" id="novo-cardapio">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+			<p:tooltip for="novo-cardapio" value="Cadastrar novo cardápio" position="bottom" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink action="cadastrar-cardapio.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" ajax="false">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar	
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<f:event type="preRenderView" listener="#{cardapioBean.listarTodos}" />
+
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<p:dataTable var="card" value="#{cardapioBean.cardapios}"
+				emptyMessage="Nenhum cardápio cadastrado"
+				resizableColumns="true" id="tabelaCardapios" rows="10" paginator="true" paginatorPosition="bottom">
+								
+				<p:column headerText="Nome" sortBy="#{card.nome}">
+					<h:outputText value="#{card.nome}"/>
+				</p:column>
+
+				<p:column headerText="Opções" width="100" styleClass="centralizado">
+				
+					<p:link  id="editar" outcome="/private/cardapio-receita/cardapio-receita.xhtml">
+						<i class="material-icons Blue-Grey Icon-Hover">add_shopping_cart</i>
+						<f:param name="id" value="#{card.id}" />
+					</p:link>
+					
+					<p:tooltip for="editar" value="Editar dados" position="bottom" />
+
+
+					<p:commandLink id="remover" action="#{cardapioBean.remover()}"
+						update="frm frm:msg">
+						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
+						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir este cardápio?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener value="#{card}" target="#{cardapioBean.cardapio}" />
+					</p:commandLink>
+
+					<p:tooltip for="remover" value="Remover Cardápio" position="bottom" />
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

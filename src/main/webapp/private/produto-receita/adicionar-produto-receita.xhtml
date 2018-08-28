@@ -1,0 +1,106 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Adicionar Produtos em uma Receita" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="contract.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Adicionar produtos a receita: #{produtoReceitaBean.receita.nome}" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Tela para adicionar produtos em uma receita" />
+	</ui:define>
+		
+		<ui:define name="conteudo" >
+	
+		<script type="text/javascript">
+		    function handleDrop(event, ui) {
+		        var droppedCar = ui.draggable;
+		 
+		        droppedCar.fadeOut('');
+		    }
+		</script>
+	
+		<h:form id="frm">
+		
+			<p:messages id="msg" closable="true" globalsOnly="true" />
+			
+			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px">
+				<p:fieldset id="prodDisponiveis" legend="Produtos Disponíveis (Cadastrados no sistema)">
+			        <p:dataTable id="tbProdutosDisponiveis" var="produto" value="#{produtoReceitaBean.produtosDisponiveis}" 
+			        		filteredValue="#{produtoReceitaBean.produtosFiltrados}"	emptyMessage="Não há mais produtos disponíveis"
+			        		rows="10" paginator="true" paginatorPosition="bottom">
+			            <p:column style="width:35px">
+			                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" style="padding: 10px 10px" />
+			                <p:draggable for="dragIcon" revert="true" helper="clone"/>
+			            </p:column>
+			 
+			            <p:column headerText="Nome" sortBy="#{produto.nome}">
+			                <h:outputText value="#{produto.nome}" />
+			            </p:column>
+			        </p:dataTable>
+			    </p:fieldset>				
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px" id="scroll">
+				<p:fieldset id="produtosSelecionados" legend="Produtos Selecionados (Constarão na receita)">
+			        <p:outputPanel id="dropArea">
+			            <h:outputText value="Arraste e solte os produtos aqui" rendered="#{empty produtoReceitaBean.droppedProdutosDisponiveis}" style="font-size:18px;" />
+			            <p:dataTable id="tabelaProdutosSelecionados" var="prodSelecionados" value="#{produtoReceitaBean.droppedProdutosDisponiveis}" 
+			            		rendered="#{not empty produtoReceitaBean.droppedProdutosDisponiveis}" 
+			            		>
+			            	<p:column width="35">
+			                	<p:commandLink id="icon-remove" styleClass="ui-icon ui-icon-trash" update="frm:msg frm:dropArea tabelaProdutosSelecionados frm:tbProdutosDisponiveis" action="#{produtoReceitaBean.removerProdutoDropped(prodSelecionados)}"/>
+			                </p:column>
+			                
+			                <p:column headerText="Nome" sortBy="#{prodSelecionados.nome}">
+			                    <h:outputText value="#{prodSelecionados.nome}" />
+			                </p:column>
+			                
+			                <p:column width="90" headerText="Per-capta" styleClass="centralizado">
+								<p:inputText value="#{prodSelecionados.perCapta}" id="per-capta" 
+										styleClass="form-control centralizado" required="true"
+										requiredMessage="Campo 'Per-Capta' é obrigatório"/>
+								<p:tooltip for="per-capta" value="#{prodSelecionados.unidadeMedida}" position="left" />
+			                </p:column>
+			            </p:dataTable>
+			        </p:outputPanel>
+			    </p:fieldset>
+			</h:panelGroup>
+
+			<p:droppable for="produtosSelecionados" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="tbProdutosDisponiveis" onDrop="handleDrop">
+		        <p:ajax listener="#{produtoReceitaBean.onProdutoDrop}" update="dropArea prodDisponiveis tbProdutosDisponiveis" />
+		    </p:droppable>
+
+			<h:panelGroup layout="block" styleClass="row" >
+				<div class="col-md-12">
+					<div class="panel-footer">
+						<p:button value="Cancelar" action="lista-receita.xhtml?faces-redirect=true"
+							styleClass="button-orange" icon="fa fa-ban" />
+							
+						<p:spacer width="5px" />
+
+						<p:commandButton value="Salvar" action="#{produtoReceitaBean.salvarProdutosNaReceita()}"
+							styleClass="button-blue" icon="fa fa-floppy-o"
+							update="frm frm:msg" />
+							
+							<!-- <p:commandButton value="Editar" action="#{produtoReceitaBean.editarReceita()}"
+							styleClass="button-blue" icon="fa fa-floppy-o"
+							update="frm frm:msg" />-->
+					</div>
+				</div>
+			</h:panelGroup>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

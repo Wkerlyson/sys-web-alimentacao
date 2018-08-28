@@ -1,0 +1,198 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Cadastrar Produto" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="breakfast.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="Cadastrar Produto" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Tela para cadastro de um novo Produto" />
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" globalsOnly="true" />
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-2">
+					<div class="form-group">
+						<p:outputLabel value="Und. de Medida " for="und-medida" />
+						<p:selectOneMenu value="#{produtoBean.produto.unidadeMedida}"
+							id="und-medida" required="true"
+							requiredMessage="Campo 'Und. de Medida' é obrigatório">
+							<f:selectItems value="#{produtoBean.unidades}" var="unidade"
+								itemLabel="#{unidade.descricao}" itemValue="#{unidade}"></f:selectItems>
+								<p:ajax  update="campos" event="change" listener="#{produtoBean.renderComponentes()}"/>  
+						</p:selectOneMenu>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					<div class="form-group">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText value="#{produtoBean.produto.nome}" id="nome"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Nome' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup id="campos">
+					<h:panelGroup layout="block" styleClass="col-md-2" rendered="#{produtoBean.renderComponentes}" >
+						<div class="form-group">
+							<p:outputLabel value="Total em #{produtoBean.produto.unidadeMedida} " for="und-total" icon="ui-icon-close" id="lb-total"/> 
+							<p:tooltip for="lb-total" value="Informe nesse campo o valor total em #{produtoBean.produto.unidadeMedida} que este produto possui. 
+										Ex.: Arroz é vendido em pacotes de 1Kg, logo você informaria 1.000g." position="top" />
+							<p:inputText value="#{produtoBean.produto.valorTotalEmUndMedida}" id="und-total"
+								styleClass="form-control" required="true"
+								requiredMessage="Campo 'Valor total' é obrigatório" />
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel style="font-size:120px;" value="Carboidrato:" id="label-carb" for="carboidrato" />
+						<p:tooltip for="label-carb" value="Carboidrato" position="top" />
+						<p:inputText value="#{produtoBean.produto.carboidratos}" id="carboidrato"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Carboidrato' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Proteina: " for="prot"/>
+						<p:inputText value="#{produtoBean.produto.proteinas}" id="prot"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Proteina' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Lipídio: " for="lip"/>
+						<p:inputText value="#{produtoBean.produto.lipidios}" id="lip"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Lipídio' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Fibras: " for="fibras"/>
+						<p:inputText value="#{produtoBean.produto.fibras}" id="fibras"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Fibras' é obrigatório" />
+					</div>
+				</h:panelGroup>				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Colesterol:" id="label-colest" for="colest"/>
+						<p:tooltip for="label-colest" value="Colesterol" position="top" />
+						<p:inputText value="#{produtoBean.produto.colesterol}" id="colest"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Colesterol' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Vitam. A: " id="label-a" for="a"/>
+						<p:tooltip for="label-a" value="Vitamina A" position="top" />
+						<p:inputText value="#{produtoBean.produto.vitaminaA}" id="a"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Vitamina A' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Vitam. C: " id="label-c" for="c"/>
+						<p:tooltip for="label-c" value="Vitamina C" position="top" />
+						<p:inputText value="#{produtoBean.produto.vitaminaC}" id="c"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Vitamina C' é obrigatório" />
+					</div>
+				</h:panelGroup>				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Cálcio: " id="label-ca" for="ca"/>
+						<p:tooltip for="label-ca" value="Cálcio" position="top" />
+						<p:inputText value="#{produtoBean.produto.calcio}" id="ca"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Cálcio' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Zinco: " id="label-zn" for="zn"/>
+						<p:tooltip for="label-zn" value="Zinco" position="top" />
+						<p:inputText value="#{produtoBean.produto.zinco}" id="zn"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Zinco' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Ferro: " id="label-fe" for="fe"/>
+						<p:tooltip for="label-fe" value="Ferro" position="top" />
+						<p:inputText value="#{produtoBean.produto.ferro}" id="fe"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Ferro' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Sódio: " id="label-na" for="na"/>
+						<p:tooltip for="label-na" value="Sódio" position="top" />
+						<p:inputText value="#{produtoBean.produto.sodio}" id="na"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Sódio' é obrigatório" />
+					</div>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" styleClass="col-md-1">
+					<div class="form-group">
+						<p:outputLabel value="Magnésio: " id="label-mg" for="mg"/>
+						<p:tooltip for="label-mg" value="Magnésio" position="top" />
+						<p:inputText value="#{produtoBean.produto.magnesio}" id="mg"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Magnésio' é obrigatório" />
+					</div>
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<div class="col-md-12">
+					<div class="panel-footer">
+						<p:button value="Cancelar" styleClass="button-orange" outcome="lista-produto.xhtml"
+							icon="fa fa-ban" />
+
+						<p:spacer width="5px" />
+
+						<p:commandButton value="Salvar" styleClass="button-blue"
+							action="#{produtoBean.salvar()}"	icon="fa fa-floppy-o" update="frm frm:msg" />
+					</div>
+				</div>
+			</h:panelGroup>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

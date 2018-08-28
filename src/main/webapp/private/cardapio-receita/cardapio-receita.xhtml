@@ -1,0 +1,125 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		<h:outputText value="Adicionar receitas ao cardápio" />
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="contract.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h:outputText value="#{cardapioReceitaBean.cardapio.nome}" />
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		<h:outputText value="Tela para adicionar receitas em um cardápio" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:commandLink styleClass="btn btn-blue" title="Cadastrar Cardápio"
+				onclick="PF('dlgAddReceita').show();" style="margin-bottom: 20px"
+				id="dAdd">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Adicionar receita
+			</p:commandLink>
+			<p:tooltip for="dAdd" value="Adicionar receita ao cardápio"
+				position="bottom" />
+		</h:form>
+
+		<h:form id="frm">
+
+			<p:dialog header="Adicionar Receita" widgetVar="dlgAddReceita"
+				modal="true" resizable="false" draggable="false">
+				<p:messages id="msg" closable="true" globalsOnly="true"/>
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					<div class="form-group">
+						<p:outputLabel value="Dia da Semana" for="dia-semana" />
+						<br />
+						<p:selectOneMenu
+							value="#{cardapioReceitaBean.cardapioReceita.diaSemana}"
+							id="dia-semana" required="true"
+							requiredMessage="Campo 'Dia da Semana' é obrigatório">
+							<f:selectItems value="#{cardapioReceitaBean.diasSemana}"
+								var="diaSemana" itemLabel="#{diaSemana.descricao}"
+								itemValue="#{diaSemana}"></f:selectItems>
+						</p:selectOneMenu>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					<div class="form-group">
+						<p:outputLabel value="Refeição" for="tipo-refeicao" />
+						<br />
+						<p:selectOneMenu
+							value="#{cardapioReceitaBean.cardapioReceita.tipoRefeicao}"
+							id="tipo-refeicao" required="true"
+							requiredMessage="Campo 'Refeição' é obrigatório">
+							<f:selectItems value="#{cardapioReceitaBean.tiposRefeicao}"
+								var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"></f:selectItems>
+						</p:selectOneMenu>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					<div class="form-group">
+						<p:outputLabel value="Receitas Disponíveis" for="receitas" />
+						<p:selectOneMenu id="receitas" effect="fade"
+							converter="receitaConverter"
+							value="#{cardapioReceitaBean.cardapioReceita.receita}"
+							required="true"
+							requiredMessage="Campo 'Receitas disponíveis' é obrigatório"
+							filter="true">
+							<f:selectItem itemLabel="Selecionar receita" itemValue="" />
+							<f:selectItems value="#{cardapioReceitaBean.receitasCadastradas}"
+								var="receita" itemValue="#{receita}" itemLabel="#{receita.nome}" />
+						</p:selectOneMenu>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="row">
+					<div class="col-md-12">
+						<div class="panel-footer">
+							<p:commandButton value="Adicionar" styleClass="button-blue"
+								icon="fa fa-floppy-o" update="frmTab:tabelaReceitas frm:msg"
+								action="#{cardapioReceitaBean.salvar()}" />
+						</div>
+					</div>
+				</h:panelGroup>
+			</p:dialog>
+
+		</h:form>
+
+		<h:form id="frmTab">
+
+			<p:dataTable var="re"
+				value="#{cardapioReceitaBean.cardapiosReceitas}"
+				emptyMessage="Nenhuma receita adiciona a esse cardápio"
+				id="tabelaReceitas" paginator="true" paginatorPosition="bottom"
+				sortBy="#{re.diaSemana}">
+				<f:facet name="header">
+		          #{cardapioReceitaBean.cardapio.nome.toUpperCase()}
+		        </f:facet>
+				<p:column headerText="Dia da Semana" width="160" groupRow="true"
+					styleClass="centralizado">
+					<h:outputText value="#{re.diaSemana}" />
+				</p:column>
+				<p:column headerText="Refeição" width="200">
+					<h:outputText value="#{re.tipoRefeicao}" />
+				</p:column>
+
+				<p:column headerText="Receita">
+					<h:outputText value="#{re.receita.nome}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

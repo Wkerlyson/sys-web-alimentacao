@@ -1,0 +1,93 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo-pagina">
+		Escolas
+	</ui:define>
+
+	<ui:define name="imagem">
+		<h:graphicImage library="img" name="escola.png" />
+	</ui:define>
+
+	<ui:define name="titulo">
+		Escolas
+	</ui:define>
+
+	<ui:define name="subtitulo">
+		Listagem de todas as escolas cadastradas no sistema.
+	</ui:define>
+
+	<ui:define name="links">
+		<h:form>
+			<p:commandLink action="cadastrar-escola.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" title="Cadastrar Escola" ajax="false" id="nova-escola">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar
+			</p:commandLink>
+			<p:tooltip for="nova-escola" value="Cadastrar nova escola" position="bottom" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="links-xs">
+		<h:form>
+			<p:commandLink action="cadastrar-escola.xhtml?faces-redirect=true"
+				styleClass="btn btn-orange" ajax="false">
+				<div class="fa fa-plus-circle icon-link iconLink" />
+				Cadastrar	
+			</p:commandLink>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<f:event type="preRenderView" listener="#{escolaBean.listarTodos}" />
+
+		<h:form id="frm">
+			<p:messages id="msg" closable="true" />
+
+			<p:dataTable var="esc" value="#{escolaBean.escolas}"
+				filteredValue="#{escolaBean.escolasFiltradas}" emptyMessage="Nenhuma escola cadastrada"
+				resizableColumns="true" id="tabelaEscolas" rows="10" paginator="true" paginatorPosition="bottom">
+								
+				<p:column headerText="INEP" sortBy="#{esc.inep}" width="100">
+					<h:outputText value="#{esc.inep}" />
+				</p:column>
+
+				<p:column headerText="Nome" sortBy="#{esc.nome}">
+					<h:outputText value="#{esc.nome}"/>
+				</p:column>
+
+				<p:column headerText="Opções" width="100" styleClass="centralizado">
+					<p:link outcome="/private/escolas/editar-escola" id="editar">
+						<i class="material-icons Blue-Grey Icon-Hover">create</i>
+						<f:param name="id" value="#{esc.id}" />
+					</p:link>
+					
+					<p:tooltip for="editar" value="Editar dados" position="bottom" />
+
+
+					<p:commandLink id="remover" action="#{escolaBean.remover()}"
+						update="frm frm:msg">
+						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
+						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir esta escola?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener value="#{esc}" target="#{escolaBean.escola}" />
+					</p:commandLink>
+
+					<p:tooltip for="remover" value="Remover escola" position="bottom" />
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

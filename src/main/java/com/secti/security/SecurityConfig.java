@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-	private static final String URL_ACESSO_NEGADO = "/public/404.xhtml";
-	private static final String URL_ACESSO_ADMIN = "/private/admin/**";
+	private static final String URL_ACESSO_NEGADO = "/public/403.xhtml";
+	private static final String URL_ACESSO_ADMIN = "/private/usuarios/**";
 	
 
 	private static final String URL_LOGIN = "/public/login.xhtml";

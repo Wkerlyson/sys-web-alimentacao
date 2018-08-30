@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		//Login
 		http.formLogin().loginPage(URL_LOGIN).permitAll()
-				.defaultSuccessUrl("/private/escolas/lista-escola.xhtml", true)
+				.defaultSuccessUrl("/private/dashboard.xhtml", true)
 				.failureUrl(URL_LOGIN_ERROR)
 				.usernameParameter("username")
 				.passwordParameter("password");

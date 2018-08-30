@@ -6,11 +6,11 @@
 	<section class="sidebar">
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img width="60" height="60" avatar="" />
+				<img width="60" height="60" avatar="#{sessaoBean.nomeUsuarioLogado}" />
 			</div>
 			<div class="pull-left info">
 				<p>
-					<h:outputText value="Usuario Logado" />
+					<h:outputText value="#{sessaoBean.nomeUsuarioLogado}" />
 				</p>
 				<!-- Status -->
 
@@ -115,7 +115,7 @@
 						</p:link></li>
 				</ul></li>
 				
-				<li class="treeview"><p:link href="">
+				<li class="treeview"><p:link href="" rendered="#{sessaoBean.hasRole('ADMIN')}">
 					<sub class="material-icons">account_box</sub>
 					<span>Usuários</span>
 					<i class="fa fa-angle-left pull-right"></i>

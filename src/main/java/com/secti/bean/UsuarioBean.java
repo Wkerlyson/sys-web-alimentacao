@@ -65,6 +65,7 @@ public class UsuarioBean implements Serializable{
 	public String editar() {
 		try {
 			service.editar(usuario);
+			
 			FacesUtil.msgInfo("Usuario editado com sucesso");
 			usuario = null;
 			return "/private/usuarios/lista-usuario.xhtml?faces-redirect=true";
@@ -75,6 +76,15 @@ public class UsuarioBean implements Serializable{
 		return null;
 	}
 	
+	public void remover() {
+		try {
+			service.remover(usuario, usuario.getId());
+			FacesUtil.msgInfo("Usuario removido com sucesso");
+			usuario = null;
+		} catch (Exception e) {
+			FacesUtil.msgErro("Erro ao remover o usuário. ERRO: " + e.getMessage());
+		}
+	}
 	
 	public UsuarioService getService() {
 		return service;

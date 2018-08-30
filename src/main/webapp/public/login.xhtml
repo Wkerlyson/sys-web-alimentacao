@@ -11,6 +11,7 @@
 </f:metadata>
 
 <h:head>
+
 	<f:facet name="first">
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,14 +33,12 @@
 			<div class="login">
 				<div class="login-screen animated fadeIn">
 					<div class="app-title">
-						<h1>Sistema - Alimentação</h1>
-						<h4>LOGIN</h4>
-						<hr />
+						<p:graphicImage library="img" name="logo-secti-qxb.png"
+							styleClass="logo" />
 					</div>
 
 					<div align="center">
-						<p:messages id="msgs" closable="true"
-							styleClass="msgs" />
+						<p:messages id="msgs" closable="true" styleClass="msgs" />
 					</div>
 
 					<div class="login-form">
@@ -60,17 +59,17 @@
 								<p:password styleClass="password" placeholder="Senha"
 									id="password" required="true" />
 							</h:panelGrid>
-							
-						</p:panelGrid>
 
+						</p:panelGrid>
 						<div class="ui-g-12">
-							<p:commandButton styleClass="btn btn-primary btn-large btn-block"
+							<p:commandButton styleClass="btn btn-primary btn-large"
 								value="ACESSAR" ajax="false" action="#{loginBean.acessar()}"
 								update="msgs" />
 						</div>
 						<!-- <a -->
 						<!-- class="login-link" href="#">Lost your password?</a> -->
 					</div>
+
 				</div>
 			</div>
 

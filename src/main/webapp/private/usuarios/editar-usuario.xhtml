@@ -6,19 +6,19 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo-pagina">
-		<h:outputText value="Cadastrar Usuário" />
+		<h:outputText value="Editar Usuário" />
 	</ui:define>
 
 	<ui:define name="imagem">
-		<h:graphicImage library="img" name="add-user.png" />
+		<h:graphicImage library="img" name="user.png" />
 	</ui:define>
 
 	<ui:define name="titulo">
-		<h:outputText value="Cadastrar Usuário" />
+		<h:outputText value="Editar Usuário" />
 	</ui:define>
 
 	<ui:define name="subtitulo">
-		<h:outputText value="Tela para cadastro de um novo usuário" />
+		<h:outputText value="Tela para edição de usuário" />
 	</ui:define>
 
 
@@ -32,7 +32,7 @@
 					<p:outputLabel value="Nome de Usuário: " for="nomeusuario" />
 					<p:inputText value="#{usuarioBean.usuario.nomeUsuario}" id="nomeusuario"
 						styleClass="form-control" required="true"
-						requiredMessage="Campo 'Nome de Usuário' é obrigatório" />
+						requiredMessage="Campo 'Nome de Usuário' é obrigatório" disabled="#{sessaoBean.usuarioLogado == usuarioBean.usuario}" />
 				</div>
 			</h:panelGroup>
 
@@ -50,7 +50,7 @@
 						<p:outputLabel value="Tipo de Usuário:" for="tipousuario" />
 						<p:selectOneButton value="#{usuarioBean.usuario.roles}"
 							id="tipousuario" required="true"
-							requiredMessage="Campo 'Tipo de Usuário' é obrigatório">
+							requiredMessage="Campo 'Tipo de Usuário' é obrigatório" disabled="#{sessaoBean.usuarioLogado == usuarioBean.usuario}">
 							
 							<f:selectItems value="#{usuarioBean.roles}" var="role"
 								itemLabel="#{role.descricao.toUpperCase()}" itemValue="#{role}">
@@ -62,7 +62,7 @@
 			<h:panelGroup layout="block" styleClass="row">
 				<div class="col-md-12">
 					<div class="panel-footer">
-						<p:button value="Cancelar" 
+						<p:button value="Cancelar" outcome="lista-usuario"
 							styleClass="button-orange" icon="fa fa-ban" />
 							
 						<p:spacer width="5px" />

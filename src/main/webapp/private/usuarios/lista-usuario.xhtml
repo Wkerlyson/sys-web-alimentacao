@@ -59,21 +59,22 @@
 
 				<p:column headerText="Opções" width="100" styleClass="centralizado">
 					<p:link outcome="/private/usuarios/editar-usuario" id="editar">
-						<i class="material-icons Blue-Grey Icon-Hover">create</i>
+						<i class="material-icons Blue-Grey Icon-Hover">edit</i>
 						<f:param name="id" value="#{user.id}" />
 					</p:link>
 					
-					<p:tooltip for="editar" value="Editar dados" position="bottom" />
+					<p:tooltip for="editar" value="Alterar dados" position="bottom" />
 
 
-					<p:commandLink id="remover"
-						update="frm frm:msg">
+					<p:commandLink id="remover" disabled="#{sessaoBean.usuarioLogado == user}"
+						update="frm frm:msg frm:tabelaUsuarios" action="#{usuarioBean.remover()}">
 						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
 						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir este usuário?" icon="ui-icon-alert" />
 						<f:setPropertyActionListener value="#{user}" target="#{usuarioBean.usuario}" />
 					</p:commandLink>
 
-					<p:tooltip for="remover" value="Excluir Usuário" position="bottom" />
+					<p:tooltip rendered="#{sessaoBean.usuarioLogado == user}" for="remover" value="Não é permitido excluir o usuário logado." position="left" />
+					<p:tooltip rendered="#{sessaoBean.usuarioLogado != user}" for="remover" value="Excluir Usuário" position="bottom" />
 
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 						<p:commandButton value="Sim" type="button"

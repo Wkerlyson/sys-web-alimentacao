@@ -6,5 +6,5 @@ Sistema web para gerenciamento e controle nutricional de alimentos da Secretaria
 _JSF_,
 _JPA (Hibernate)_,
 _CDI_,
-_Spring Security_,
-_Primefaces_
+_Spring Security_ e
+_Primefaces_.

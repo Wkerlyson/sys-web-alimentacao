@@ -100,19 +100,17 @@
 		<h:form id="frmTab">
 
 			<p:dataTable var="re"
-				value="#{cardapioReceitaBean.cardapiosReceitas}"
-				emptyMessage="Nenhuma receita adiciona a esse cardápio"
-				id="tabelaReceitas" paginator="true" paginatorPosition="bottom"
-				sortBy="#{re.diaSemana}">
+				value="#{cardapioReceitaBean.cardapiosReceitas}"	emptyMessage="Nenhuma receita adiciona a esse cardápio"
+					id="tabelaReceitas" paginator="true" paginatorPosition="bottom"	sortBy="#{re.diaSemana}"
+					>
 				<f:facet name="header">
 		          #{cardapioReceitaBean.cardapio.nome.toUpperCase()}
 		        </f:facet>
-				<p:column headerText="Dia da Semana" width="160" groupRow="true"
-					styleClass="centralizado">
-					<h:outputText value="#{re.diaSemana}" />
+				<p:column headerText="Dia da Semana" width="160" groupRow="true" styleClass="centralizado">
+					<h:outputText value="#{re.diaSemana.descricao.toUpperCase()}" styleClass="bold"/>
 				</p:column>
 				<p:column headerText="Refeição" width="200">
-					<h:outputText value="#{re.tipoRefeicao}" />
+					<h:outputText value="#{re.tipoRefeicao.descricao}" />
 				</p:column>
 
 				<p:column headerText="Receita">

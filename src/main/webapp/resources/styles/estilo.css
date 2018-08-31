@@ -18,6 +18,11 @@
 	-o-transition: color .2s ease;
 	transition: color .2s ease;
 }
+
+.bold{
+	font-weight: bold;
+}
+
 #scroll {
   width:300px;
   height:170px;

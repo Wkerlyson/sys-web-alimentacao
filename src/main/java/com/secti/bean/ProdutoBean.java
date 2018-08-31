@@ -78,6 +78,7 @@ public class ProdutoBean implements Serializable{
 		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		if (id != null) {
 			produto = service.buscarPorId(produto, Long.parseLong(id));
+			renderComponentes();
 		}
 
 	}

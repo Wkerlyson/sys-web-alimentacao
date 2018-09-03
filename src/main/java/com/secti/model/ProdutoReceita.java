@@ -16,8 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_produto_receita")
-@NamedQueries({@NamedQuery(name = "ProdutoReceita.listarProdutos", query = "SELECT pr FROM ProdutoReceita pr WHERE pr.receita = :receita"),
-	@NamedQuery(name = "ProdutoReceita.removerProduto", query = "DELETE FROM ProdutoReceita WHERE produto = :produto")
+@NamedQueries({
+	@NamedQuery(name = "ProdutoReceita.listarProdutos", query = "SELECT pr FROM ProdutoReceita pr WHERE pr.receita = :receita"),
+	@NamedQuery(name = "ProdutoReceita.removerProduto", query = "DELETE FROM ProdutoReceita WHERE produto = :produto"),
 })
 public class ProdutoReceita implements Serializable{
 

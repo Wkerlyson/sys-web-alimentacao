@@ -46,6 +46,12 @@ public class CardapioReceitaBean implements Serializable {
 	private List<TipoRefeicao> tiposRefeicao;
 	private List<DiasSemana> diasSemana;
 	private List<CardapioReceita> cardapiosReceitas;
+	
+	private double totalCalCarboidrato;
+	private double totalCalProteina;
+	private double totalCalLipidio;
+	
+	private double VET;
 
 	@PostConstruct
 	private void init() {
@@ -54,6 +60,7 @@ public class CardapioReceitaBean implements Serializable {
 		buscarDadosCardapio();
 		buscarReceitas();
 		listarReceitasDoCardapio();
+		calcularValorNutricional();
 	}
 	
 	public void listarReceitasDoCardapio(){
@@ -86,6 +93,42 @@ public class CardapioReceitaBean implements Serializable {
 		}
 	}
 	
+	private void calcularValorNutricional() {
+		
+		for (CardapioReceita cardapioReceita : cardapiosReceitas) {
+			this.cardapioReceita.setTotalCalcio(this.cardapioReceita.getTotalCalcio() + cardapioReceita.getReceita().getTotalCalcio());
+			this.cardapioReceita.setTotalCarboidratos(this.cardapioReceita.getTotalCarboidratos() + cardapioReceita.getReceita().getTotalCarboidratos());
+			this.cardapioReceita.setTotalFibras(this.cardapioReceita.getTotalFibras() + cardapioReceita.getReceita().getTotalFibras());
+			this.cardapioReceita.setTotalLipidios(this.cardapioReceita.getTotalLipidios() + cardapioReceita.getReceita().getTotalLipidios());
+			this.cardapioReceita.setTotalProteinas(this.cardapioReceita.getTotalProteinas() + cardapioReceita.getReceita().getTotalProteinas());
+			this.cardapioReceita.setTotalZinco(this.cardapioReceita.getTotalZinco() + cardapioReceita.getReceita().getTotalZinco());
+			this.cardapioReceita.setTotalFerro(this.cardapioReceita.getTotalFerro() + cardapioReceita.getReceita().getTotalFerro());
+			this.cardapioReceita.setTotalSodio(this.cardapioReceita.getTotalSodio() + cardapioReceita.getReceita().getTotalSodio());
+			this.cardapioReceita.setTotalMagnesio(this.cardapioReceita.getTotalMagnesio() + cardapioReceita.getReceita().getTotalMagnesio());
+			this.cardapioReceita.setTotalVitaminaA(this.cardapioReceita.getTotalVitaminaA() + cardapioReceita.getReceita().getTotalVitaminaA());
+			this.cardapioReceita.setTotalVitaminaC(this.cardapioReceita.getTotalVitaminaC() + cardapioReceita.getReceita().getTotalVitaminaC());
+		}
+		
+		this.cardapioReceita.setTotalCarboidratos(this.cardapioReceita.getTotalCarboidratos() / 5);
+		this.cardapioReceita.setTotalProteinas(this.cardapioReceita.getTotalProteinas() / 5);
+		this.cardapioReceita.setTotalLipidios(this.cardapioReceita.getTotalLipidios() / 5);
+		this.cardapioReceita.setTotalCalcio(this.cardapioReceita.getTotalCalcio() / 5);
+		this.cardapioReceita.setTotalFibras(this.cardapioReceita.getTotalFibras() / 5);
+		this.cardapioReceita.setTotalZinco(this.cardapioReceita.getTotalZinco() / 5);
+		this.cardapioReceita.setTotalFerro(this.cardapioReceita.getTotalFerro() / 5);
+		this.cardapioReceita.setTotalSodio(this.cardapioReceita.getTotalSodio() / 5);
+		this.cardapioReceita.setTotalMagnesio(this.cardapioReceita.getTotalMagnesio() / 5);
+		this.cardapioReceita.setTotalVitaminaA(this.cardapioReceita.getTotalVitaminaA() / 5);
+		this.cardapioReceita.setTotalVitaminaC(this.cardapioReceita.getTotalVitaminaC() / 5);
+		
+		this.totalCalCarboidrato = this.cardapioReceita.getTotalCarboidratos() * 4;
+		this.totalCalProteina = this.cardapioReceita.getTotalProteinas() * 4;
+		this.totalCalLipidio = this.cardapioReceita.getTotalLipidios() * 9;
+		
+		this.setVET((this.totalCalCarboidrato + this.totalCalProteina + this.totalCalLipidio));
+		
+	}
+		
 	
 	public List<CardapioReceita> getCardapiosReceitas() {
 		return cardapiosReceitas;
@@ -138,5 +181,15 @@ public class CardapioReceitaBean implements Serializable {
 	public void setReceitasCadastradas(List<Receita> receitasCadastradas) {
 		this.receitasCadastradas = receitasCadastradas;
 	}
+
+	public double getVET() {
+		return VET;
+	}
+
+	public void setVET(double vET) {
+		VET = vET;
+	}
+	
+	
 
 }

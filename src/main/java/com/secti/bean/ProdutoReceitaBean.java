@@ -181,7 +181,6 @@ public class ProdutoReceitaBean implements Serializable{
 		receita.setTotalLipidios(((produto.getLipidios() / 100) * produto.getPerCapta()) + receita.getTotalLipidios());
 		receita.setTotalProteinas(((produto.getProteinas() / 100) * produto.getPerCapta()) + receita.getTotalProteinas());
 		receita.setTotalColesterol(((produto.getColesterol() / 100) * produto.getPerCapta()) + receita.getTotalColesterol());
-		receita.setTotalCalcio(((produto.getCalcio() / 100) * produto.getPerCapta()) + receita.getTotalCalcio());
 		receita.setTotalZinco(((produto.getZinco() / 100) * produto.getPerCapta()) + receita.getTotalZinco());
 		receita.setTotalFerro(((produto.getFerro() / 100) * produto.getPerCapta()) + receita.getTotalFerro());
 		receita.setTotalSodio(((produto.getSodio() / 100) * produto.getPerCapta()) + receita.getTotalSodio());
@@ -198,7 +197,6 @@ public class ProdutoReceitaBean implements Serializable{
 		receita.setTotalLipidios(receita.getTotalLipidios() - ((produto.getLipidios() / 100) * produto.getPerCapta()));
 		receita.setTotalProteinas(receita.getTotalProteinas() - ((produto.getProteinas() / 100) * produto.getPerCapta()));
 		receita.setTotalColesterol(receita.getTotalColesterol() - ((produto.getColesterol() / 100) * produto.getPerCapta()));
-		receita.setTotalCalcio(receita.getTotalCalcio() - ((produto.getCalcio() / 100) * produto.getPerCapta()));
 		receita.setTotalZinco(receita.getTotalZinco() - ((produto.getZinco() / 100) * produto.getPerCapta()));
 		receita.setTotalFerro(receita.getTotalFerro() - ((produto.getFerro() / 100) * produto.getPerCapta()));
 		receita.setTotalSodio(((produto.getSodio() / 100) * produto.getPerCapta()) + receita.getTotalSodio());

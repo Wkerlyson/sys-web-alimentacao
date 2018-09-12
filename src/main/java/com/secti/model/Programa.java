@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tbl_programa")
@@ -30,17 +31,9 @@ public class Programa implements Serializable{
 	@Column(length = 100, nullable = false)
 	private String recurso;
 	
+	@Transient
+	private int qtdAlunos;
 	
-	
-	public Programa() {
-		
-	}
-
-	@ManyToMany
-	@JoinTable(name = "tbl_cardapio_programa", joinColumns = @JoinColumn(name = "id_programa"), 
-			inverseJoinColumns = @JoinColumn(name = "id_cardapio"))
-	private List<Cardapio> cardapios;
-
 	public Long getId() {
 		return id;
 	}
@@ -65,12 +58,15 @@ public class Programa implements Serializable{
 		this.recurso = recurso;
 	}
 
-	public List<Cardapio> getCardapios() {
-		return cardapios;
+	
+	
+
+	public int getQtdAlunos() {
+		return qtdAlunos;
 	}
 
-	public void setCardapios(List<Cardapio> cardapios) {
-		this.cardapios = cardapios;
+	public void setQtdAlunos(int qtdAlunos) {
+		this.qtdAlunos = qtdAlunos;
 	}
 
 	@Override

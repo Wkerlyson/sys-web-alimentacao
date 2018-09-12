@@ -1,6 +1,7 @@
 package com.secti.bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -93,6 +94,16 @@ public class CardapioReceitaBean implements Serializable {
 		}
 	}
 	
+	public void remover() {
+		try {
+			cardapioReceitaService.remover(cardapioReceita, cardapioReceita.getId());
+			FacesUtil.msgInfo("Receita foi removida com sucesso ");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private void calcularValorNutricional() {
 		
 		for (CardapioReceita cardapioReceita : cardapiosReceitas) {
@@ -125,6 +136,7 @@ public class CardapioReceitaBean implements Serializable {
 		this.totalCalProteina = this.cardapioReceita.getTotalProteinas() * 4;
 		this.totalCalLipidio = this.cardapioReceita.getTotalLipidios() * 9;
 		
+				
 		this.setVET((this.totalCalCarboidrato + this.totalCalProteina + this.totalCalLipidio));
 		
 	}

@@ -25,4 +25,8 @@ public class CardapioReceitaServiceImpl implements CardapioReceitaService, Seria
 		return dao.listarReceitasPorCardapio(cardapio);
 	}
 
+	public void remover(CardapioReceita cardapioReceita, Long id) throws Exception {
+		dao.remover(CardapioReceita.class, id);
+	}
+
 }

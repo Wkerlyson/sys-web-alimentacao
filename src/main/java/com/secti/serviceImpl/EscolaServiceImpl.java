@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.secti.dao.EscolaDAO;
 import com.secti.model.Escola;
+import com.secti.model.EscolaPrograma;
 import com.secti.service.EscolaService;
 
 public class EscolaServiceImpl implements EscolaService, Serializable{
@@ -34,6 +35,10 @@ public class EscolaServiceImpl implements EscolaService, Serializable{
 
 	public void editar(Escola escola) throws Exception {
 		dao.editar(escola);
+	}
+
+	public void salvarEscolaPrograma(Escola escola, List<EscolaPrograma> programas) throws Exception {
+		dao.salvarEscolaPrograma(escola, programas);		
 	}
 
 }

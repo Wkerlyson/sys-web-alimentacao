@@ -25,10 +25,6 @@ public class Cardapio implements Serializable{
 	@Column(length = 200, nullable = false)
 	private String nome;
 	
-	@ManyToMany(mappedBy = "cardapios")
-	private List<Programa> programas;
-	
-
 	public Long getId() {
 		return id;
 	}
@@ -44,15 +40,5 @@ public class Cardapio implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public List<Programa> getProgramas() {
-		return programas;
-	}
-
-	public void setProgramas(List<Programa> programas) {
-		this.programas = programas;
-	}
-	
-	
 
 }

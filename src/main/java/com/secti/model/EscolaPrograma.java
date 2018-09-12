@@ -34,9 +34,6 @@ public class EscolaPrograma implements Serializable{
 	@JoinColumn(name = "programa_id_programa", referencedColumnName = "id_programa", nullable = false)
 	private Programa programa;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "cardapio_id_cardapio", referencedColumnName = "id_cardapio", nullable = false)
-	private Cardapio cardapio;
 
 	public Long getId() {
 		return id;
@@ -68,18 +65,6 @@ public class EscolaPrograma implements Serializable{
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
-	}
-
-	public Cardapio getCardapio() {
-		return cardapio;
-	}
-
-	public void setCardapio(Cardapio cardapio) {
-		this.cardapio = cardapio;
-	}
-	
-	
-	
-	
+	}	
 	
 }

@@ -98,9 +98,11 @@
 		</h:form>
 
 		<h:form id="frmTab">
+			
+			<p:messages id="msgTab" closable="true" globalsOnly="true"/>
 
 			<p:dataTable var="re"
-				value="#{cardapioReceitaBean.cardapiosReceitas}"	emptyMessage="Nenhuma receita adiciona a esse cardápio"
+				value="#{cardapioReceitaBean.cardapiosReceitas}" emptyMessage="Nenhuma receita adiciona a esse cardápio"
 					id="tabelaReceitas" paginator="true" paginatorPosition="bottom"	sortBy="#{re.diaSemana}"
 					>
 				<f:facet name="header">
@@ -118,9 +120,9 @@
 				</p:column>
 				
 				<p:column headerText="Opões" width="80" styleClass="centralizado">
-					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash" update="frm frm:msg">
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash" update="frmTab:msgTab frmTab:tabelaReceitas" action="#{cardapioReceitaBean.remover()}">
 						<p:confirm header="Confirmar exclusão" message="Essa operação não poderá ser desfeita! Deseja realmente continuar? " icon="ui-icon-alert" />
-						<f:setPropertyActionListener value="#{re}" target="#{receitaBean.receita}" />
+						<f:setPropertyActionListener value="#{re}" target="#{cardapioReceitaBean.cardapioReceita}" />
 					</p:commandLink>
 					<p:tooltip for="remover" value="Remover #{re.receita.nome}" position="left" />
 					
@@ -134,49 +136,74 @@
 				</p:column>
 			</p:dataTable>
 			
-			<br/>
 			
-			<p:panelGrid columns="6">
+			<p:panelGrid columns="6" layout="grid" style="margin-top:20px;" id="panel-nutricional"> 
 			    <f:facet name="header">
-			       <strong>VALOR NUTRICIONAL MÉDIO DIÁRIO - PER CAPITA</strong> <br/>
-			       <strong>VET (Kcal): #{cardapioReceitaBean.VET}</strong>
+			       VALOR NUTRICIONAL MÉDIO DIÁRIO - PER CAPITA <br/>
+			       <h:outputText value="VET (Kcal): #{cardapioReceitaBean.VET}">
+				   		<f:convertNumber minFractionDigits="2" minIntegerDigits="2"/>
+				   </h:outputText>
 			    </f:facet>
 			 
-			    <h:outputText value="Carboidrato (g):" styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalCarboidratos}" />
+			    <h:outputText value="Carboidrato (g):" />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalCarboidratos}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 
-			    <h:outputText value="Magnésio (mg):" styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalMagnesio}" />
+			    <h:outputText value="Magnésio (mg):"/>
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalMagnesio}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			 
-			    <h:outputText value="Vitamina A (mcg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalVitaminaA}" />
+			    <h:outputText value="Vitamina A (mcg): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalVitaminaA}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			 
-			    <h:outputText value="Proteínas (g):" styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalProteinas}" />
+			    <h:outputText value="Proteínas (g):" />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalProteinas}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Ferro (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalFerro}" />
+			    <h:outputText value="Ferro (mg): "/>
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalFerro}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Vitamina C (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalVitaminaC}" />
+			    <h:outputText value="Vitamina C (mg): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalVitaminaC}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Lipídios (g): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalLipidios}" />	
+			    <h:outputText value="Lipídios (g): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalLipidios}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>	
 			    
-			    <h:outputText value="Sódio (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalSodio}" />	    
+			    <h:outputText value="Sódio (mg): "/>
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalSodio}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>	    
 			    
-			    <h:outputText value="Fibras (g): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalFibras}" />
+			    <h:outputText value="Fibras (g): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalFibras}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Cálcio (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalCalcio}" />
+			    <h:outputText value="Cálcio (mg): "/>
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalCalcio}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Zinco (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalZinco}" />
+			    <h:outputText value="Zinco (mg): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalZinco}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			    
-			    <h:outputText value="Colesterol (mg): " styleClass="bold"/>
-			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalColesterol}" />
+			    <h:outputText value="Colesterol (mg): " />
+			    <h:outputText value="#{cardapioReceitaBean.cardapioReceita.totalColesterol}">
+			    	<f:convertNumber minFractionDigits="2"/>
+			    </h:outputText>
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

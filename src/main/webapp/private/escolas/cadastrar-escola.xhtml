@@ -24,25 +24,93 @@
 
 	<ui:define name="conteudo">
 
-		<h:form id="frm">
-			<p:messages id="msg" closable="true" globalsOnly="true" />
+		<script type="text/javascript">
+		    function handleDrop(event, ui) {
+		        var droppedCar = ui.draggable;
+		 
+		        droppedCar.fadeOut('');
+		    }
+		</script>
 
-			<h:panelGroup layout="block" styleClass="col-md-2">
-				<div class="form-group">
-					<p:outputLabel value="INEP: " for="inep" />
-					<p:inputText value="#{escolaBean.escola.inep}" id="inep"
-						styleClass="form-control" required="true"
-						requiredMessage="Campo 'INEP' é obrigatório" />
-				</div>
+		<h:form id="frm">
+			<h:panelGroup layout="block" styleClass="row">
+
+				<p:messages id="msg" closable="true" globalsOnly="true" />
+
+				<h:panelGroup layout="block" styleClass="col-md-2">
+					<div class="form-group">
+						<p:outputLabel value="INEP: " for="inep" />
+						<p:inputText value="#{escolaBean.escola.inep}" id="inep"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'INEP' é obrigatório" />
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="col-md-3">
+					<div class="form-group">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText value="#{escolaBean.escola.nome}" id="nome"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Nome' é obrigatório" />
+					</div>
+				</h:panelGroup>
 			</h:panelGroup>
 
-			<h:panelGroup layout="block" styleClass="col-md-3">
-				<div class="form-group">
-					<p:outputLabel value="Nome: " for="nome" />
-					<p:inputText value="#{escolaBean.escola.nome}" id="nome"
-						styleClass="form-control" required="true"
-						requiredMessage="Campo 'Nome' é obrigatório" />
-				</div>
+
+			<h:panelGroup layout="block" styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-6"
+					style="margin-bottom: 20px" id="scroll">
+					<p:fieldset id="programasSelecionados"
+						legend="PROGRAMAS QUE A ESCOLA POSSUI" >
+						<p:outputPanel id="dropArea">
+							<h:outputText value="Arraste e solte os programas aqui"
+								rendered="#{empty escolaBean.programasSelecionados}"
+								style="font-size:18px;" />
+							<p:dataTable id="tabelaProgramasSelecionados"
+								var="progSelecionados"
+								value="#{escolaBean.programasSelecionados}"
+								rendered="#{not empty escolaBean.programasSelecionados}">
+								<p:column headerText="Nome"
+									sortBy="#{progSelecionados.programa.nome}">
+									<h:outputText value="#{progSelecionados.programa.nome}" />
+								</p:column>
+
+								<p:column width="120" headerText="QTD Alunos"
+									styleClass="centralizado">
+									<p:inputText value="#{progSelecionados.qtdAluno}"
+										id="qtd-alunos" styleClass="form-control centralizado"
+										required="true"
+										requiredMessage="Campo 'QDT Alunos' é obrigatório" />
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+					</p:fieldset>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="col-md-6"
+					style="margin-bottom: 20px">
+					<p:fieldset id="progDisponiveis" legend="Programas Cadastrados">
+						<p:dataTable id="tbProgramasDisponiveis" var="programa"
+							value="#{escolaBean.programasDisponiveis}"
+							emptyMessage="Não há programas disponíveis">
+							<p:column style="width:35px">
+								<h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4"
+									style="padding: 10px 10px" />
+								<p:draggable for="dragIcon" revert="true" helper="clone" />
+							</p:column>
+
+							<p:column headerText="Nome" sortBy="#{programa.nome}">
+								<h:outputText value="#{programa.nome}" />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+				</h:panelGroup>
+
+				<p:droppable for="programasSelecionados" tolerance="touch"
+					activeStyleClass="ui-state-highlight"
+					datasource="tbProgramasDisponiveis" onDrop="handleDrop">
+					<p:ajax listener="#{escolaBean.onProgramaDrop}"
+						update="dropArea progDisponiveis tbProgramasDisponiveis" />
+				</p:droppable>
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="row">
@@ -50,7 +118,7 @@
 					<div class="panel-footer">
 						<p:button value="Cancelar" outcome="lista-escola.xhtml"
 							styleClass="button-orange" icon="fa fa-ban" />
-							
+
 						<p:spacer width="5px" />
 
 						<p:commandButton value="Salvar" action="#{escolaBean.salvar()}"
@@ -59,6 +127,7 @@
 					</div>
 				</div>
 			</h:panelGroup>
+
 		</h:form>
 
 	</ui:define>

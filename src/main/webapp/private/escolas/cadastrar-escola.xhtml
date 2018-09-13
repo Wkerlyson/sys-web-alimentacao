@@ -56,12 +56,13 @@
 				</h:panelGroup>
 			</h:panelGroup>
 
+			<br />
 
 			<h:panelGroup layout="block" styleClass="row">
 				<h:panelGroup layout="block" styleClass="col-md-6"
 					style="margin-bottom: 20px" id="scroll">
 					<p:fieldset id="programasSelecionados"
-						legend="PROGRAMAS QUE A ESCOLA POSSUI" >
+						legend="Programas que a escola possui">
 						<p:outputPanel id="dropArea">
 							<h:outputText value="Arraste e solte os programas aqui"
 								rendered="#{empty escolaBean.programasSelecionados}"
@@ -70,17 +71,18 @@
 								var="progSelecionados"
 								value="#{escolaBean.programasSelecionados}"
 								rendered="#{not empty escolaBean.programasSelecionados}">
+								
 								<p:column headerText="Nome"
 									sortBy="#{progSelecionados.programa.nome}">
 									<h:outputText value="#{progSelecionados.programa.nome}" />
 								</p:column>
 
-								<p:column width="120" headerText="QTD Alunos"
+								<p:column width="120" headerText="Quantidade de alunos"
 									styleClass="centralizado">
 									<p:inputText value="#{progSelecionados.qtdAluno}"
 										id="qtd-alunos" styleClass="form-control centralizado"
 										required="true"
-										requiredMessage="Campo 'QDT Alunos' é obrigatório" />
+										requiredMessage="Campo 'Quantidade de alunos' é obrigatório" />
 								</p:column>
 							</p:dataTable>
 						</p:outputPanel>
@@ -101,6 +103,7 @@
 							<p:column headerText="Nome" sortBy="#{programa.nome}">
 								<h:outputText value="#{programa.nome}" />
 							</p:column>
+
 						</p:dataTable>
 					</p:fieldset>
 				</h:panelGroup>

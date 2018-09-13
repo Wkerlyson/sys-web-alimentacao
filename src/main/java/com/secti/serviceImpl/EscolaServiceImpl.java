@@ -41,4 +41,8 @@ public class EscolaServiceImpl implements EscolaService, Serializable{
 		dao.salvarEscolaPrograma(escola, programas);		
 	}
 
+	public void editarEscolaPrograma(Escola escola, List<EscolaPrograma> programas) throws Exception {
+		dao.editarEscolaPrograma(escola, programas);		
+	}
+
 }

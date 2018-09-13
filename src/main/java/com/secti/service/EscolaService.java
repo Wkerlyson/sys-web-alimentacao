@@ -18,4 +18,6 @@ public interface EscolaService {
 	public void editar(Escola escola) throws Exception;
 	
 	public void salvarEscolaPrograma(Escola escola, List<EscolaPrograma> programas) throws Exception;
+	
+	public void editarEscolaPrograma(Escola escola, List<EscolaPrograma> programas) throws Exception;
 }

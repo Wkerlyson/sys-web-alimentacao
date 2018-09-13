@@ -26,5 +26,17 @@ public class EscolaDAO extends GenericoDAO<Escola>{
 			manager.persist(programaSelecionado);
 		}
 	}
+	
+	@Transactional
+	public void editarEscolaPrograma(Escola escola, List<EscolaPrograma> programas) {
+		
+		manager.merge(escola);
+				
+		for (int i = 0; i < programas.size(); i++) {
+			EscolaPrograma programaSelecionado = programas.get(i);
+			programaSelecionado.setEscola(escola);
+			manager.merge(programaSelecionado);
+		}
+	}
 
 }

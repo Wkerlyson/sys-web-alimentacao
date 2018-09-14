@@ -9,14 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.swing.JOptionPane;
 
 import org.primefaces.event.DragDropEvent;
 
 import com.secti.model.Escola;
 import com.secti.model.EscolaPrograma;
-import com.secti.model.Produto;
-import com.secti.model.ProdutoReceita;
 import com.secti.model.Programa;
 import com.secti.service.EscolaProgramaService;
 import com.secti.service.EscolaService;
@@ -45,27 +42,19 @@ public class EscolaBean implements Serializable {
 
 	private List<EscolaPrograma> programasSelecionados;
 
-	@Inject
-	private EscolaPrograma escolaPrograma;
+	private @Inject EscolaPrograma escolaPrograma;
 
 	private @Inject EscolaProgramaService escolaProgramaService;
+
+	private @Inject Programa programa;
 
 	@PostConstruct
 	public void init() {
 		programasSelecionados = new ArrayList<EscolaPrograma>();
 
-		listarProgramas();
+		listarProgramasCadastrados();
 		prepararEditar();
 
-	}
-
-	public void onProgramaDrop(DragDropEvent ddEvent) {
-		Programa prog = ((Programa) ddEvent.getData());
-		escolaPrograma = new EscolaPrograma();
-
-		programasDisponiveis.remove(prog);
-		escolaPrograma.setPrograma(prog);
-		programasSelecionados.add(escolaPrograma);
 	}
 
 	public String salvar() {
@@ -84,23 +73,27 @@ public class EscolaBean implements Serializable {
 		return null;
 	}
 
-	public void removerProgramaBD(EscolaPrograma escolaPrograma) { // remove o programa/escola do banco
+	public void removerPrograma(EscolaPrograma escolaPrograma) {
 		try {
-			if (escolaPrograma.getId() != null) {
-				escolaProgramaService.remover(escolaPrograma, escolaPrograma.getId());				
-			}
 			
-			FacesUtil.msgInfo("Programa removido com sucesso");
+			if (escolaPrograma.getId() != null) {
+				escolaProgramaService.remover(escolaPrograma, escolaPrograma.getId());
+			}
+
 			programasSelecionados.remove(escolaPrograma);
+
+			programa.setId(escolaPrograma.getPrograma().getId());
+			programa.setNome(escolaPrograma.getPrograma().getNome());
+			programa.setRecurso(escolaPrograma.getPrograma().getRecurso());
+			programasDisponiveis.add(programa);
+
+			FacesUtil.msgInfo("Programa removido com sucesso");
+
 		} catch (Exception e) {
 			FacesUtil.msgErro("Erro ao remover o programa. ERRO: " + e.getMessage());
 		}
 	}
-
-	public void listarTodos() {
-		escolas = service.listarTodos();
-	}
-
+	
 	public void remover() {
 		try {
 			service.remover(escola, escola.getId());
@@ -134,7 +127,11 @@ public class EscolaBean implements Serializable {
 		return null;
 	}
 
-	public void listarProgramas() {
+	public void listarTodos() {
+		escolas = service.listarTodos();
+	}
+
+	public void listarProgramasCadastrados() {
 		programasDisponiveis = programaService.listarTodos();
 	}
 
@@ -151,10 +148,16 @@ public class EscolaBean implements Serializable {
 		}
 	}
 
+	public void onProgramaDrop(DragDropEvent ddEvent) {
+		Programa prog = ((Programa) ddEvent.getData());
+		escolaPrograma = new EscolaPrograma();
+
+		programasDisponiveis.remove(prog);
+		escolaPrograma.setPrograma(prog);
+		programasSelecionados.add(escolaPrograma);
+	}
+
 	public Escola getEscola() {
-		if (escola == null) {
-			escola = new Escola();
-		}
 		return escola;
 	}
 

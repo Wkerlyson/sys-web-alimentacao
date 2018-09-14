@@ -46,7 +46,7 @@
 					</div>
 				</h:panelGroup>
 
-				<h:panelGroup layout="block" styleClass="col-md-3">
+				<h:panelGroup layout="block" styleClass="col-md-4">
 					<div class="form-group">
 						<p:outputLabel value="Nome: " for="nome" />
 						<p:inputText value="#{escolaBean.escola.nome}" id="nome"
@@ -71,6 +71,25 @@
 								var="progSelecionados"
 								value="#{escolaBean.programasSelecionados}"
 								rendered="#{not empty escolaBean.programasSelecionados}">
+								
+								<p:column width="35">
+									<p:commandLink id="icon-remove"
+										styleClass="ui-icon ui-icon-trash"
+										action="#{escolaBean.removerPrograma(progSelecionados)}"
+										update="frm frm:msg">
+										<p:confirm header="Confirmar remoção"
+											message="Deseja realmente remover o programa da escola?"
+											icon="ui-icon-alert" />
+									</p:commandLink>
+									<p:tooltip for="icon-remove" value="Remover programa da escola" position="bottom" />
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="Sim" type="button"
+											styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+										<p:commandButton value="Não" type="button"
+											styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									</p:confirmDialog>
+								</p:column>
 								
 								<p:column headerText="Nome"
 									sortBy="#{progSelecionados.programa.nome}">

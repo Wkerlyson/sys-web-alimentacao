@@ -53,7 +53,8 @@
 				resizableColumns="true" id="tabelaCardapios" rows="10" paginator="true" paginatorPosition="bottom">
 								
 				<p:column headerText="Nome" sortBy="#{card.nome}">
-					<h:outputText value="#{card.nome}"/>
+					<h:outputText value="#{card.nome} - "/>
+					<h:outputText value="#{card.ano}/#{card.semestre}" styleClass="bold"/>
 				</p:column>
 				
 				<p:column headerText="Programa Englobado" width="400">
@@ -64,7 +65,7 @@
 					
 				
 					<p:link  id="editar" outcome="/private/cardapio-receita/cardapio-receita.xhtml">
-						<i class="material-icons Blue-Grey Icon-Hover">add_shopping_cart</i>
+						<i class="material-icons Blue-Grey Icon-Hover">playlist_add</i>
 						<f:param name="id" value="#{card.id}" />
 					</p:link>
 					
@@ -75,7 +76,7 @@
 						<f:param name="id" value="#{card.id}" />
 					</p:link>
 					
-					<p:tooltip for="editar-nome-programa" value="Editar nome e/ou programa" position="bottom" />
+					<p:tooltip for="editar-nome-programa" value="Editar dados do cardápio" position="bottom" />
 
 					<p:commandLink id="remover" action="#{cardapioBean.remover()}"
 						update="frm frm:msg">

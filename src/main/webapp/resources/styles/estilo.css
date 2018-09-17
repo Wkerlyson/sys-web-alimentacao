@@ -23,6 +23,11 @@
 	font-weight: bold;
 }
 
+.label-programa{
+	padding: 10px 10px;
+	margin-left: 10px !important;
+}
+
 #scroll {
   width:300px;
   height:170px;

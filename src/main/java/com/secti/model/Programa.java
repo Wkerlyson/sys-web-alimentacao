@@ -1,18 +1,13 @@
 package com.secti.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tbl_programa")
@@ -31,8 +26,7 @@ public class Programa implements Serializable{
 	@Column(length = 100, nullable = false)
 	private String recurso;
 	
-	@Transient
-	private int qtdAlunos;
+
 	
 	public Long getId() {
 		return id;
@@ -58,16 +52,7 @@ public class Programa implements Serializable{
 		this.recurso = recurso;
 	}
 
-	
-	
 
-	public int getQtdAlunos() {
-		return qtdAlunos;
-	}
-
-	public void setQtdAlunos(int qtdAlunos) {
-		this.qtdAlunos = qtdAlunos;
-	}
 
 	@Override
 	public int hashCode() {

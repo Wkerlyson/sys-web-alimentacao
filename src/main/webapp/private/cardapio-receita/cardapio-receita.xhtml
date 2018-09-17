@@ -15,6 +15,9 @@
 
 	<ui:define name="titulo">
 		<h:outputText value="#{cardapioReceitaBean.cardapio.nome}" />
+		<p:outputLabel value="#{cardapioReceitaBean.cardapio.programa.nome}" styleClass="button-orange label-programa" id="label-programa"/>
+		
+		<p:tooltip for="label-programa" value="Programa que o cardápio engloba" position="bottom" />
 	</ui:define>
 
 	<ui:define name="subtitulo">

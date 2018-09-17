@@ -55,21 +55,32 @@
 				<p:column headerText="Nome" sortBy="#{card.nome}">
 					<h:outputText value="#{card.nome}"/>
 				</p:column>
+				
+				<p:column headerText="Programa Englobado" width="400">
+					<h:outputText value="#{card.programa.nome}"/>
+				</p:column>
 
 				<p:column headerText="Opções" width="100" styleClass="centralizado">
+					
 				
 					<p:link  id="editar" outcome="/private/cardapio-receita/cardapio-receita.xhtml">
 						<i class="material-icons Blue-Grey Icon-Hover">add_shopping_cart</i>
 						<f:param name="id" value="#{card.id}" />
 					</p:link>
 					
-					<p:tooltip for="editar" value="Editar dados" position="bottom" />
+					<p:tooltip for="editar" value="Adicionar ou Remover receitas" position="left" />
 
+					<p:link  id="editar-nome-programa" outcome="/private/cardapios/editar-cardapio"> 
+						<i class="material-icons Blue-Grey Icon-Hover">edit</i>
+						<f:param name="id" value="#{card.id}" />
+					</p:link>
+					
+					<p:tooltip for="editar-nome-programa" value="Editar nome e/ou programa" position="bottom" />
 
 					<p:commandLink id="remover" action="#{cardapioBean.remover()}"
 						update="frm frm:msg">
 						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
-						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir este cardápio?" icon="ui-icon-alert" />
+						<p:confirm header="Excluir cardápio" message="Essa ação não poderá ser desfeita. Deseja reamente continuar?" icon="ui-icon-alert" />
 						<f:setPropertyActionListener value="#{card}" target="#{cardapioBean.cardapio}" />
 					</p:commandLink>
 

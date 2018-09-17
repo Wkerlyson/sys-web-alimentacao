@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo-pagina">
-		<h:outputText value="Cadastrar Cardápio" />
+		<h:outputText value="Editar Cardápio" />
 	</ui:define>
 
 	<ui:define name="imagem">
@@ -14,11 +14,11 @@
 	</ui:define>
 
 	<ui:define name="titulo">
-		<h:outputText value="Cadastrar Cardápio" />
+		<h:outputText value="Editar Cardápio" />
 	</ui:define>
 
 	<ui:define name="subtitulo">
-		<h:outputText value="Tela para cadastro de um novo Cardápio" />
+		<h:outputText value="Tela para editação de Cardápio" />
 	</ui:define>
 
 
@@ -57,7 +57,7 @@
 							
 						<p:spacer width="5px" />
 
-						<p:commandButton value="Salvar" action="#{cardapioBean.salvar()}"
+						<p:commandButton value="Salvar" action="#{cardapioBean.editar()}"
 							styleClass="button-blue" icon="fa fa-floppy-o"
 							update="frm frm:msg" />
 					</div>

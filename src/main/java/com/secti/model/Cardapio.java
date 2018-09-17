@@ -1,6 +1,7 @@
 package com.secti.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,12 @@ public class Cardapio implements Serializable{
 	@Column(length = 200, nullable = false)
 	private String nome;
 	
+	@Column(name = "semestre_cardapio", nullable = false)
+	private Integer semestre;
+	
+	@Column(name = "ano_cardapio", nullable = false)
+	private Integer ano;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "programa_id_cardapio", referencedColumnName = "id_programa", nullable = false)
 	private Programa programa;
@@ -51,6 +58,23 @@ public class Cardapio implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+
+	public Integer getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Integer semestre) {
+		this.semestre = semestre;
+	}
+
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
+	}
 
 	public Programa getPrograma() {
 		return programa;
@@ -59,7 +83,6 @@ public class Cardapio implements Serializable{
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
 	}
-	
 	
 
 	public List<CardapioReceita> getCardapioReceitas() {

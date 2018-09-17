@@ -1,6 +1,7 @@
 package com.secti.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import com.secti.model.Cardapio;
 import com.secti.model.Programa;
 import com.secti.service.CardapioService;
 import com.secti.service.ProgramaService;
+import com.secti.util.DataUtil;
 import com.secti.util.FacesUtil;
 
 @Named
@@ -29,14 +31,23 @@ public class CardapioBean implements Serializable{
 	
 	private @Inject ProgramaService programaService;
 	
+	@Inject
+	private DataUtil dataUtil;
+	
 	private List<Cardapio> cardapios;
 	private List<Programa> programas;
 	
+	private List<Integer> anosCardapio;
+	
 	@PostConstruct
 	private void init() {
+		
+		anosCardapio = new ArrayList<Integer>();
+		
 		listarTodos();
 		listarProgramasCadastrados();
 		prepararEditar();
+		popularListaAno();
 	}
 	
 	
@@ -92,7 +103,21 @@ public class CardapioBean implements Serializable{
 	public void listarProgramasCadastrados() {
 		 programas = programaService.listarTodos();
 	}
-
+	
+	private void popularListaAno() {
+		anosCardapio.add(dataUtil.getAnoAtual());
+		anosCardapio.add(dataUtil.getAnoAtual()+1);
+		
+		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+		
+		if (id != null) {
+			if (!(anosCardapio.contains(cardapio.getAno()))) {
+				anosCardapio.add(0, cardapio.getAno());
+			}
+		}
+	}
+	
+	
 	public Cardapio getCardapio() {
 		if (cardapio == null) {
 			cardapio = new Cardapio();
@@ -123,6 +148,25 @@ public class CardapioBean implements Serializable{
 	public void setProgramas(List<Programa> programas) {
 		this.programas = programas;
 	}
-	
+
+
+	public DataUtil getDataUtil() {
+		return dataUtil;
+	}
+
+
+	public void setDataUtil(DataUtil dataUtil) {
+		this.dataUtil = dataUtil;
+	}
+
+
+	public List<Integer> getAnosCardapio() {
+		return anosCardapio;
+	}
+
+
+	public void setAnosCardapio(List<Integer> anosCardapio) {
+		this.anosCardapio = anosCardapio;
+	}	
 	
 }

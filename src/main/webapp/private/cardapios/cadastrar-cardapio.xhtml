@@ -35,6 +35,29 @@
 						requiredMessage="Campo 'Nome' é obrigatório" />
 				</div>
 			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="col-md-2">
+				<div class="form-group">
+					<p:outputLabel value="Ano do cardápio: " for="ano" />
+					<p:selectOneButton id="ano" value="#{cardapioBean.cardapio.ano}" required="true" requiredMessage="O campo 'Ano do Cardápio' é obrigatório">
+						<f:selectItems value="#{cardapioBean.anosCardapio}" var="ano"
+								itemLabel="#{ano}" itemValue="#{ano}">
+						</f:selectItems>
+			        </p:selectOneButton>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="col-md-2">
+				<div class="form-group">
+					<p:outputLabel value="Semestre do cardápio: " for="semestre"/>
+					<p:selectOneButton id="semestre" value="#{cardapioBean.cardapio.semestre}" required="true" requiredMessage="O campo 'Semestre do Cardápio' é obrigatório">
+			            <f:selectItem itemLabel="1º" itemValue='1' />
+			            <f:selectItem itemLabel="2º" itemValue='2' />
+			        </p:selectOneButton>
+					
+				</div>
+			</h:panelGroup>
+			
 			<h:panelGroup layout="block" styleClass="col-md-3">
 				<div class="form-group">
 					<p:outputLabel value="Programa que o cardápio engloba:" for="programa-cardapio" />

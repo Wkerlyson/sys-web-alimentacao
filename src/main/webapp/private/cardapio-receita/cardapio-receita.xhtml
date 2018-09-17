@@ -26,7 +26,8 @@
 
 	<ui:define name="conteudo">
 
-		<h:form>
+		<h:form id="frm-btn-add">
+									
 			<p:commandLink styleClass="btn btn-blue" title="Cadastrar Cardápio"
 				onclick="PF('dlgAddReceita').show();" style="margin-bottom: 20px"
 				id="dAdd">
@@ -35,6 +36,7 @@
 			</p:commandLink>
 			<p:tooltip for="dAdd" value="Adicionar receita ao cardápio"
 				position="bottom" />
+				
 		</h:form>
 
 		<h:form id="frm">
@@ -90,8 +92,8 @@
 				<h:panelGroup layout="block" styleClass="row">
 					<div class="col-md-12">
 						<div class="panel-footer">
-							<p:commandButton value="Adicionar" styleClass="button-blue"
-								icon="fa fa-floppy-o" update="frmTab:tabelaReceitas frm:msg"
+							<p:commandButton value="Adicionar" styleClass="button-blue" 
+								icon="fa fa-floppy-o" process="@all" update="frmTab"
 								action="#{cardapioReceitaBean.salvar()}" />
 						</div>
 					</div>
@@ -104,9 +106,9 @@
 			
 			<p:messages id="msgTab" closable="true" globalsOnly="true"/>
 
-			<p:dataTable var="re"
+			<p:dataTable var="re" id="tabelaReceitas" 
 				value="#{cardapioReceitaBean.cardapiosReceitas}" emptyMessage="Nenhuma receita adiciona a esse cardápio"
-					id="tabelaReceitas" paginator="true" paginatorPosition="bottom"	sortBy="#{re.diaSemana}"
+					paginator="true" paginatorPosition="bottom"	sortBy="#{re.diaSemana}"
 					>
 				<f:facet name="header">
 		          #{cardapioReceitaBean.cardapio.nome.toUpperCase()}
@@ -122,11 +124,13 @@
 					<h:outputText value="#{re.receita.nome}" />
 				</p:column>
 				
-				<p:column headerText="Opões" width="80" styleClass="centralizado">
-					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash" update="frmTab:msgTab frmTab:tabelaReceitas" action="#{cardapioReceitaBean.remover()}">
+				<p:column headerText="Opões" width="80" styleClass="centralizado">		
+							
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash" action="#{cardapioReceitaBean.remover()}" process="@all" update="frmTab">
 						<p:confirm header="Confirmar exclusão" message="Essa operação não poderá ser desfeita! Deseja realmente continuar? " icon="ui-icon-alert" />
 						<f:setPropertyActionListener value="#{re}" target="#{cardapioReceitaBean.cardapioReceita}" />
 					</p:commandLink>
+					
 					<p:tooltip for="remover" value="Remover #{re.receita.nome}" position="left" />
 					
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

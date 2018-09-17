@@ -35,23 +35,6 @@
 		
 			<p:messages id="msg" closable="true" globalsOnly="true" />
 			
-			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px">
-				<p:fieldset id="prodDisponiveis" legend="Produtos Disponíveis (Cadastrados no sistema)">
-			        <p:dataTable id="tbProdutosDisponiveis" var="produto" value="#{produtoReceitaBean.produtosDisponiveis}" 
-			        		filteredValue="#{produtoReceitaBean.produtosFiltrados}"	emptyMessage="Não há mais produtos disponíveis"
-			        		rows="10" paginator="true" paginatorPosition="bottom">
-			            <p:column style="width:35px">
-			                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" style="padding: 10px 10px" />
-			                <p:draggable for="dragIcon" revert="true" helper="clone"/>
-			            </p:column>
-			 
-			            <p:column headerText="Nome" sortBy="#{produto.nome}">
-			                <h:outputText value="#{produto.nome}" />
-			            </p:column>
-			        </p:dataTable>
-			    </p:fieldset>				
-			</h:panelGroup>
-			
 			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px" id="scroll">
 				<p:fieldset id="produtosSelecionados" legend="Produtos Selecionados (Constarão na receita)">
 			        <p:outputPanel id="dropArea">
@@ -77,7 +60,24 @@
 			        </p:outputPanel>
 			    </p:fieldset>
 			</h:panelGroup>
-
+			
+			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px">
+				<p:fieldset id="prodDisponiveis" legend="Produtos Disponíveis (Cadastrados no sistema)">
+			        <p:dataTable id="tbProdutosDisponiveis" var="produto" value="#{produtoReceitaBean.produtosDisponiveis}" 
+			        		filteredValue="#{produtoReceitaBean.produtosFiltrados}"	emptyMessage="Não há mais produtos disponíveis"
+			        		rows="10" paginator="true" paginatorPosition="bottom">
+			            <p:column style="width:35px">
+			                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" style="padding: 10px 10px" />
+			                <p:draggable for="dragIcon" revert="true" helper="clone"/>
+			            </p:column>
+			 
+			            <p:column headerText="Nome" sortBy="#{produto.nome}">
+			                <h:outputText value="#{produto.nome}" />
+			            </p:column>
+			        </p:dataTable>
+			    </p:fieldset>				
+			</h:panelGroup>
+			
 			<p:droppable for="produtosSelecionados" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="tbProdutosDisponiveis" onDrop="handleDrop">
 		        <p:ajax listener="#{produtoReceitaBean.onProdutoDrop}" update="dropArea prodDisponiveis tbProdutosDisponiveis" />
 		    </p:droppable>

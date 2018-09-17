@@ -73,12 +73,12 @@ public class CardapioReceitaBean implements Serializable {
 		try {
 			cardapioReceita.setCardapio(cardapio);
 			cardapioReceitaService.salvar(cardapioReceita);
-			FacesUtil.msgInfo("Receita adicionado ao cardapio com sucesso.");
-			cardapioReceita = null;
+			FacesUtil.msgInfo("Receita adicionada ao cardapio com sucesso.");
 			listarReceitasDoCardapio();
+			calcularValorNutricional();
+			cardapioReceita.setId(null);
 		} catch (Exception e) {
-			FacesUtil.msgErro("Erro ao adicionar a receita ao cardápio. ERRO: " + e.getStackTrace());
-			System.err.println(e.getStackTrace());
+			FacesUtil.msgErro("Erro ao adicionar a receita ao cardápio. ERRO: " + e.getMessage());
 		}
 
 	}
@@ -98,9 +98,11 @@ public class CardapioReceitaBean implements Serializable {
 		try {
 			cardapioReceitaService.remover(cardapioReceita, cardapioReceita.getId());
 			FacesUtil.msgInfo("Receita foi removida com sucesso ");
+			listarReceitasDoCardapio();
+			calcularValorNutricional();
+			cardapioReceita.setId(null);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FacesUtil.msgErro("Erro remover a receita do cardápio. ERRO: " + e.getMessage());
 		}
 	}
 	
@@ -161,8 +163,6 @@ public class CardapioReceitaBean implements Serializable {
 	}
 
 	public CardapioReceita getCardapioReceita() {
-		if (cardapioReceita == null)
-			cardapioReceita = new CardapioReceita();
 		return cardapioReceita;
 	}
 

@@ -1,12 +1,14 @@
 package com.secti.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -58,6 +60,9 @@ public class Receita implements Serializable{
 
 	@Column(name = "total_vitamina_c", precision = 2, scale = 2)
 	private double totalVitaminaC;
+	
+	@OneToMany(mappedBy="produto")
+	private List<ProdutoReceita> produtoReceitas;
 
 	public Long getId() {
 		return id;
@@ -169,6 +174,16 @@ public class Receita implements Serializable{
 
 	public void setTotalVitaminaC(double totalVitaminaC) {
 		this.totalVitaminaC = totalVitaminaC;
+	}
+	
+	
+
+	public List<ProdutoReceita> getProdutoReceitas() {
+		return produtoReceitas;
+	}
+
+	public void setProdutoReceitas(List<ProdutoReceita> produtoReceitas) {
+		this.produtoReceitas = produtoReceitas;
 	}
 
 	@Override

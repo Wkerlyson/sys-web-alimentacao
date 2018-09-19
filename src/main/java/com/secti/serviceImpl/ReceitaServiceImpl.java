@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.secti.dao.ReceitaDao;
+import com.secti.model.Produto;
+import com.secti.model.ProdutoReceita;
 import com.secti.model.Receita;
 import com.secti.service.ReceitaService;
 
@@ -36,4 +38,15 @@ public class ReceitaServiceImpl implements ReceitaService, Serializable{
 		dao.editar(receita);
 	}
 
+	public void editarProdutoReceita(Receita receita, List<ProdutoReceita> produtos, List<Produto> produtosParaRemover)
+			throws Exception {
+		dao.editarProdutoReceita(receita, produtos, produtosParaRemover);
+	}
+
+	public void salvarProdutoReceita(Receita receita, List<ProdutoReceita> produtos) throws Exception {
+		dao.salvarProdutoReceita(receita, produtos);
+	}
+
+	
+	
 }

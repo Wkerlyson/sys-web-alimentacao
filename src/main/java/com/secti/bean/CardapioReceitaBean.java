@@ -119,6 +119,7 @@ public class CardapioReceitaBean implements Serializable {
 			this.cardapioReceita.setTotalMagnesio(this.cardapioReceita.getTotalMagnesio() + cardapioReceita.getReceita().getTotalMagnesio());
 			this.cardapioReceita.setTotalVitaminaA(this.cardapioReceita.getTotalVitaminaA() + cardapioReceita.getReceita().getTotalVitaminaA());
 			this.cardapioReceita.setTotalVitaminaC(this.cardapioReceita.getTotalVitaminaC() + cardapioReceita.getReceita().getTotalVitaminaC());
+			this.cardapioReceita.setTotalColesterol(this.cardapioReceita.getTotalColesterol() + cardapioReceita.getReceita().getTotalColesterol());
 		}
 		
 		this.cardapioReceita.setTotalCarboidratos(this.cardapioReceita.getTotalCarboidratos() / 5);
@@ -132,6 +133,8 @@ public class CardapioReceitaBean implements Serializable {
 		this.cardapioReceita.setTotalMagnesio(this.cardapioReceita.getTotalMagnesio() / 5);
 		this.cardapioReceita.setTotalVitaminaA(this.cardapioReceita.getTotalVitaminaA() / 5);
 		this.cardapioReceita.setTotalVitaminaC(this.cardapioReceita.getTotalVitaminaC() / 5);
+		this.cardapioReceita.setTotalColesterol(this.cardapioReceita.getTotalColesterol() / 5);
+		
 		
 		this.totalCalCarboidrato = this.cardapioReceita.getTotalCarboidratos() * 4;
 		this.totalCalProteina = this.cardapioReceita.getTotalProteinas() * 4;

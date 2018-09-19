@@ -53,9 +53,6 @@ public class Produto implements Serializable{
 
 	private double magnesio;
 	
-	@Transient
-	private double perCapta;
-
 	@Column(name = "vitamina_a")
 	private double vitaminaA;
 
@@ -204,16 +201,5 @@ public class Produto implements Serializable{
 	public void setValorTotalEmUndMedida(double valorTotalEmUndMedida) {
 		this.valorTotalEmUndMedida = valorTotalEmUndMedida;
 	}
-
-	public double getPerCapta() {
-		return perCapta;
-	}
-
-	public void setPerCapta(double perCapta) {
-		this.perCapta = perCapta;
-	}
-
-	
-	
 
 }

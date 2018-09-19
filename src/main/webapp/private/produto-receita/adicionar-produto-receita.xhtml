@@ -14,7 +14,7 @@
 	</ui:define>
 
 	<ui:define name="titulo">
-		<h:outputText value="Adicionar produtos a receita: #{produtoReceitaBean.receita.nome}" />
+		<h:outputText value="Adicionar produtos a receita: #{receitaBean.receita.nome}" />
 	</ui:define>
 
 	<ui:define name="subtitulo">
@@ -84,7 +84,7 @@
 			<h:panelGroup layout="block" styleClass="row" >
 				<div class="col-md-12">
 					<div class="panel-footer">
-						<p:button value="Cancelar" action="lista-receita.xhtml?faces-redirect=true"
+						<p:button value="Cancelar" outcome="/private/receitas/lista-receita.xhtml"
 							styleClass="button-orange" icon="fa fa-ban" />
 							
 						<p:spacer width="5px" />

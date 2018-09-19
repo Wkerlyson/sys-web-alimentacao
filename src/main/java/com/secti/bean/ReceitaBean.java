@@ -88,6 +88,12 @@ public class ReceitaBean implements Serializable{
 	
 	public String editar() {
 		try {
+			zerarValores();
+			
+			for (ProdutoReceita produtoReceita : produtosSelecionados) {
+				atualizarInfoNutriReceita(produtoReceita);
+			}
+			
 			service.editarProdutoReceita(receita, produtosSelecionados, produtosParaRemover);
 			FacesUtil.msgInfo("Receita " + receita.getNome().toUpperCase() + " editada com sucesso");
 			receita = null;
@@ -129,6 +135,36 @@ public class ReceitaBean implements Serializable{
 
 		}
 		
+	}
+	
+	public void atualizarInfoNutriReceita(ProdutoReceita pr) {
+		receita.setTotalCalcio(((pr.getProduto().getCalcio() / 100) * pr.getPerCapita()) + receita.getTotalCalcio());
+		receita.setTotalCarboidratos(((pr.getProduto().getCarboidratos() / 100) * pr.getPerCapita()) + receita.getTotalCarboidratos());
+		receita.setTotalFibras(((pr.getProduto().getFibras() / 100) * pr.getPerCapita()) + receita.getTotalFibras());
+		receita.setTotalLipidios(((pr.getProduto().getLipidios() / 100) * pr.getPerCapita()) + receita.getTotalLipidios());
+		receita.setTotalProteinas(((pr.getProduto().getProteinas() / 100) * pr.getPerCapita()) + receita.getTotalProteinas());
+		receita.setTotalColesterol(((pr.getProduto().getColesterol() / 100) * pr.getPerCapita()) + receita.getTotalColesterol());
+		receita.setTotalZinco(((pr.getProduto().getZinco() / 100) * pr.getPerCapita()) + receita.getTotalZinco());
+		receita.setTotalFerro(((pr.getProduto().getFerro() / 100) * pr.getPerCapita()) + receita.getTotalFerro());
+		receita.setTotalSodio(((pr.getProduto().getSodio() / 100) * pr.getPerCapita()) + receita.getTotalSodio());
+		receita.setTotalMagnesio(((pr.getProduto().getMagnesio() / 100) * pr.getPerCapita()) + receita.getTotalMagnesio());
+		receita.setTotalVitaminaA(((pr.getProduto().getVitaminaA() / 100) * pr.getPerCapita()) + receita.getTotalVitaminaA());
+		receita.setTotalVitaminaC(((pr.getProduto().getVitaminaC() / 100) * pr.getPerCapita()) + receita.getTotalVitaminaC());
+	}
+	
+	public void zerarValores() {
+		receita.setTotalCalcio(0);
+		receita.setTotalCarboidratos(0);
+		receita.setTotalFibras(0);
+		receita.setTotalLipidios(0);
+		receita.setTotalProteinas(0);
+		receita.setTotalColesterol(0);
+		receita.setTotalZinco(0);
+		receita.setTotalFerro(0);
+		receita.setTotalSodio(0);
+		receita.setTotalMagnesio(0);
+		receita.setTotalVitaminaA(0);
+		receita.setTotalVitaminaC(0);
 	}
 
 

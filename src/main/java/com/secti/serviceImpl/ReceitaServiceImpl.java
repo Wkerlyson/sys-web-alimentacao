@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.secti.dao.ReceitaDao;
 import com.secti.model.Produto;
 import com.secti.model.ProdutoReceita;

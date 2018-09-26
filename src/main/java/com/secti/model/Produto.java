@@ -30,9 +30,6 @@ public class Produto implements Serializable{
 	@Column(length = 100, nullable = false)
 	private String nome;
 
-	@Column(name = "valor_monetario")
-	private double valorMonetario;
-
 	private double carboidratos;
 
 	private double fibras;
@@ -80,14 +77,6 @@ public class Produto implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public double getValorMonetario() {
-		return valorMonetario;
-	}
-
-	public void setValorMonetario(double valorMonetario) {
-		this.valorMonetario = valorMonetario;
 	}
 
 	public double getCarboidratos() {

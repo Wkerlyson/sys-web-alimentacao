@@ -44,14 +44,27 @@
 
 	<ui:define name="conteudo">
 		<f:event type="preRenderView" listener="#{programaBean.listarTodos}" />
-
+		
+			<h:form id="formT">
+			
+		</h:form>
+		
 		<h:form id="frm">
 			<p:messages id="msg" closable="true" />
-
+			
 			<p:dataTable var="p" value="#{programaBean.programas}"
 				filteredValue="#{programaBean.programasFiltrados}" emptyMessage="Nenhum programa cadastrado"
 				resizableColumns="true" id="tabelaProgramas" rows="10" paginator="true" paginatorPosition="bottom">
-								
+				
+				<f:facet name="header">
+			        LISTA DE PROGRAMAS
+			        <p:commandButton icon="ui-icon-print" actionListener="#{programaBean.imprimirProgramas}" ajax="false" style="float:LEFT"/>
+			        
+			        <h:commandLink>
+		                <p:graphicImage name="/img/pdf-icon.png" width="24"/>
+		            </h:commandLink>
+			    </f:facet>
+				
 				<p:column headerText="Nome" sortBy="#{p.nome}">
 					<h:outputText value="#{p.nome}" />
 				</p:column>

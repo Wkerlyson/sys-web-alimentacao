@@ -35,6 +35,17 @@
 		
 			<p:messages id="msg" closable="true" globalsOnly="true" />
 			
+			<h:panelGroup styleClass="row">
+				<h:panelGroup layout="block" styleClass="col-md-4">
+					<div class="form-group">
+						<p:outputLabel value="Nome: " for="nome" />
+						<p:inputText value="#{receitaBean.receita.nome}" id="nome"
+							styleClass="form-control" required="true"
+							requiredMessage="Campo 'Nome' é obrigatório" placeholder="ex.: Cuscuz com frango"/>
+					</div>
+				</h:panelGroup>
+			</h:panelGroup>
+			
 			<h:panelGroup layout="block" styleClass="col-md-6" style="margin-bottom: 20px" id="scroll">
 				<p:fieldset id="produtosSelecionados" legend="Produtos Selecionados (Constarão na receita)">
 			        <p:outputPanel id="dropArea">
@@ -89,13 +100,9 @@
 							
 						<p:spacer width="5px" />
 
-						<p:commandButton value="Salvar" action="#{receitaBean.editar()}"
+						<p:commandButton value="Salvar" action="#{receitaBean.editarProdutosReceita()}"
 							styleClass="button-blue" icon="fa fa-floppy-o"
 							update="frm frm:msg" />
-							
-							<!-- <p:commandButton value="Editar" action="#{produtoReceitaBean.editarReceita()}"
-							styleClass="button-blue" icon="fa fa-floppy-o"
-							update="frm frm:msg" />-->
 					</div>
 				</div>
 			</h:panelGroup>

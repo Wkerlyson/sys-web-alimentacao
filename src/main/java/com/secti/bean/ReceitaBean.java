@@ -54,8 +54,8 @@ public class ReceitaBean implements Serializable{
 		produtosDisponiveis = new ArrayList<Produto>();
 		produtosParaRemover = new ArrayList<Produto>();
 		
-		buscarDadosReceita();
 		listarProdutosDisponiveis();
+		buscarDadosReceita();
 	}
 	
 	public void onProdutoDrop(DragDropEvent ddEvent) {
@@ -73,20 +73,8 @@ public class ReceitaBean implements Serializable{
 			buscarProdutoReceita(receita);
 		}
 	}
-	
-	public String salvar() {
-		try {
-			service.salvarProdutoReceita(receita, produtosSelecionados);
-			FacesUtil.msgInfo("Receita " + receita.getNome().toUpperCase() + " salva com sucesso");
-			receita = null;
-			return "/private/receitas/lista-receita.xhtml?faces-redirect=true";
-		} catch (Exception e) {
-			FacesUtil.msgErro("Erro ao salvar a receita");
-		}
-		return null;
-	}
-	
-	public String editar() {
+		
+	public String editarProdutosReceita() {
 		try {
 			zerarValores();
 			
@@ -100,6 +88,33 @@ public class ReceitaBean implements Serializable{
 			return "/private/receitas/lista-receita.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			FacesUtil.msgErro("Erro ao editar a receita");
+		}
+		return null;
+	}
+	
+	public void removerReceita() {
+		try {
+			service.remover(receita, receita.getId());
+			FacesUtil.msgInfo("Receita removida com sucesso");
+			receita = null;
+		} catch (Exception e) {
+			FacesUtil.msgErro("Erro ao remover receita. ERRO: " + e.getMessage());
+		}
+	}
+	
+	public String salvarReceita() {
+		try {
+		
+			for (ProdutoReceita produtoReceita : produtosSelecionados) {
+				atualizarInfoNutriReceita(produtoReceita);
+			}
+			
+			service.salvarProdutoReceita(receita, produtosSelecionados);
+			FacesUtil.msgInfo("Receita " + receita.getNome().toUpperCase() + " salva com sucesso");
+			receita = null;
+			return "/private/receitas/lista-receita.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			FacesUtil.msgErro("Erro ao salvar a receita");
 		}
 		return null;
 	}

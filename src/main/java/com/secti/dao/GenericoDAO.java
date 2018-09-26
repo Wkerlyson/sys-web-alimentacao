@@ -16,6 +16,8 @@ public abstract class GenericoDAO<T> implements Serializable{
 
 	@Inject
 	private EntityManager em;
+	
+	
 
 	public Class<T> tipo;
 

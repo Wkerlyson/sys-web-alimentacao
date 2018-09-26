@@ -1,7 +1,11 @@
 package com.secti.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -12,6 +16,9 @@ import javax.inject.Named;
 import com.secti.model.Programa;
 import com.secti.service.ProgramaService;
 import com.secti.util.FacesUtil;
+import com.secti.util.report.GeraRelatorio;
+
+import net.sf.jasperreports.engine.JRException;
 
 
 @Named
@@ -25,6 +32,9 @@ public class ProgramaBean implements Serializable{
 	
 	@Inject
 	private Programa programa;
+	
+	@Inject
+	private GeraRelatorio relatorio;
 	
 	private List<Programa> programas;
 	
@@ -88,6 +98,22 @@ public class ProgramaBean implements Serializable{
 		}
 		
 		return null;
+	}
+	
+	public void imprimirProgramas() {
+		List<Programa> programas = new ArrayList<Programa>();
+		
+		programas = service.listarTodos();
+		
+		try {
+			relatorio.gerarRelatorio(null, programas, "relatorio-programa", "Programas");
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

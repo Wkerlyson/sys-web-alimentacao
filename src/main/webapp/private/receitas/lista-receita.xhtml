@@ -110,16 +110,16 @@
 						<f:param name="id" value="#{r.id}" />
 					</p:link>
 					
-					<p:tooltip for="editar" value="Adicionar produtos" position="bottom" />
+					<p:tooltip for="editar" value="Editar dados da receita" position="left" />
 
-					<p:commandLink id="remover" action="#{receitaBean.remover()}"
+					<p:commandLink id="remover" action="#{receitaBean.removerReceita()}"
 						update="frm frm:msg">
 						<i class="material-icons Blue-Grey Icon-Hover">delete</i>
 						<p:confirm header="Confirmar exclusão" message="Deseja realmente excluir esta receita?" icon="ui-icon-alert" />
 						<f:setPropertyActionListener value="#{r}" target="#{receitaBean.receita}" />
 					</p:commandLink>
 
-					<p:tooltip for="remover" value="Remover escola" position="bottom" />
+					<p:tooltip for="remover" value="Remover receita" position="bottom" />
 
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 						<p:commandButton value="Sim" type="button"
